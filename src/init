@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# StarInit Initialization Process:
+#
+# /init
+#  |
+#  +--(1) /etc/10_mount.sh
+#          |
+#          +--(2) /etc/20_init.sh 
+#                  |
+#                  +-- /sbin/init
+#                       |
+#                       +--(1) /etc/30_boot.sh
+#                       |       |
+#                       |       +-- udhcpc
+#                       |           |
+#                       |           +-- /etc/rc.udhcp
+#                       +--(2) /bin/login (Alt + F1, Main Login Console)
+#                       |
+#                       +--(2) /bin/login (Alt + F2)
+#                       |
+#                       +--(2) /bin/login (Alt + F3)
+#                       |
+#                       +--(2) /bin/sh (Alt + F4 [Recovery/Debug Shell])
+#                       |
+#                       +--(2) /bin/login (Alt + F4 [PUBLIC RELEASES ONLY])
+#                           |
+#                           +--(3) /bin/pivot-root [EXPERIMENTAL!]
+
+clear
+echo -e "\e[1;7mStarInit (Release 1.0.0)\e[0m"
+
+# Mount Core Filesystems (InitramFS + OverlayFS)
+exec /etc/01_mount.sh
+echo -e "\e[1;31m(Fail) \e[0mInit Script Failed."
+read -n1 -s
