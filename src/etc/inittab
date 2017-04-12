@@ -1,18 +1,10 @@
-::sysinit:/etc/30_boot.sh
-::restart:/sbin/init
-::shutdown:echo -e "\n\e[1;94m(****) \e[0mSyncing OverlayFS..."
-::shutdown:sync
+::sysinit:/etc/rc.d/rc.sysinit
+::once:cat /etc/welcome.txt
+::respawn:/bin/cttyhack /bin/sh
+::ctrlaltdel:/sbin/reboot
 ::shutdown:echo -e "\e[1;94m(****) \e[0mUnmounting All Filesystems..."
+::shutdown:sync
 ::shutdown:umount -a -r
 ::shutdown:echo -e "\e[1;94m(****) \e[0mShutting Down StarLinux..."
 ::shutdown:sleep 1
-::ctrlaltdel:/sbin/reboot
-::once:cat /etc/welcome.txt
-::respawn:/bin/cttyhack /bin/sh
-tty2::once:cat /etc/welcome.txt
-tty2::respawn:/bin/sh
-tty3::once:cat /etc/welcome.txt
-tty3::respawn:/bin/sh
-tty4::once:cat /etc/welcome.txt
-tty4::respawn:/bin/sh
-
+::restart:/sbin/init
