@@ -22,6 +22,9 @@ echo /sbin/mdev > /proc/sys/kernel/hotplug
 mdev -s
 echo -e "\e[1;32m(Pass) \e[0mPopulated Dynamic Devices Directory!"
 mount -o rw /dev/sda1 /mnt/root || rescue_shell
+# Experimental!!!
+# mount -o rw /dev/sda2 /mnt/root || rescue_shell
+# mount -o rw /dev/sda1 /mnt/root/boot || rescue_shell
 echo -e "\e[1;32m(Pass) \e[0mMounted Root Directory!"
 mount --move /dev /mnt/root/dev || rescue_shell
 mount --move /sys /mnt/root/sys || rescue_shell
