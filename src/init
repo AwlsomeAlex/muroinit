@@ -4,7 +4,7 @@
 # StarLinux Init Script #
 #########################
 # Made by AwlsomeAlex
-# Adapted for StarLinux from Gentoo
+# Adapted for StarLinux from Gentoo/Buildroot
 
 rescue_shell() {
 	echo -e "\e[1;31m(Fail) \e[0mSystem could not be initiated! Dropping to Emergency Shell!" 
