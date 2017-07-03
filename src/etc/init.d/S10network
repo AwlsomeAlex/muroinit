@@ -14,6 +14,7 @@ case "$1" in
 			[ ${DEVICE##*/} != lo ] && udhcpc -b -i ${DEVICE##*/} -s /etc/init.d/rc.udhcp
 		done
 		/sbin/ifup -a
+		;;
 	stop)
 		echo "Stopping Network..."
 		/sbin/ifdown -a
@@ -23,7 +24,7 @@ case "$1" in
 		"$0" start
 		;;
 	*)
-		echo $"Useage: $0 {start|stop|restart}"
+		echo $"Usage: $0 {start|stop|restart}"
 esac
 
 exit $?
