@@ -12,7 +12,7 @@ case "$1" in
 		for DEVICE in /sys/class/net/* ; do
 			ip link set ${DEVICE##*/} up
 			echo -e "\e[1;32m(Pass) \e[0mStarted Network Device ${DEVICE##*/}"
-			[ ${DEVICE##*/} != lo ] && udhcpc -b -i ${DEVICE##*/} -s /etc/init.d/rc.udhcp
+			[ ${DEVICE##*/} != lo ] && [ ${DEVICE##*/} != sit0 ] && udhcpc -b -i ${DEVICE##*/} -s /etc/init.d/rc.udhcp
 		done
 		# /sbin/ifup -a
 		;;
