@@ -16,7 +16,7 @@ All changes made in-between StarInit releases will be noted here.
 - Network Initalization Wording (Commit 8d0a0aa)
 
 
-## p1.0.0] - Unreleased
+## [1.0.0] - Unreleased
 ### Added:
 - Main InitramFS Initialization (Commit 1e89158)
 - Modular Init Scripts after `/sbin/init` (Commit 6b1d60e)
