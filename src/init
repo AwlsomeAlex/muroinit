@@ -13,7 +13,7 @@ rescue_shell() {
 
 dmesg -n 1
 clear
-echo -e "\e[1;7mStarInit (Release 1.1.2)\e[0m"
+echo -e "\e[1;7mStarInit (Release 1.1.3)\e[0m"
 mount -t devtmpfs none /dev || rescue_shell
 mount -t proc none /proc || rescue_shell
 mount -t sysfs none /sys || rescue_shell
