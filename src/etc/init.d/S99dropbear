@@ -1,0 +1,43 @@
+#!/bin/sh
+
+#########################
+# StarLinux Init Script #
+#########################
+# Made by AwlsomeAlex
+# Adapted for StarLinux from `static-get -x dropbear` /etc/init.d/dropbear
+
+case "$1" in
+	start)
+		if [ -f /bin/dropbear ]; then
+			echo -e "\e[1;94m(****) \e[0mStarting Dropbear..."
+			for i in rsa dss ecdsa
+			do
+				[ -f /etc/dropbear/dropbear_${i}_host_key ] && continue
+				echo -e "\e[1;94m(****) \e[0mGenerating First Time Configuration Keys..."
+				dropbearkey -t $i -f /etc/dropbear/dropbear_${i}_host_key > /dev/null 2>&1
+				echo -e "\e[1;32m(PASS) \e[0mFirst Time Configuration Keys Generated."
+			done
+			dropbear
+			echo -e "\e[1;32m(PASS) \e[0mStarted Dropbear."
+		else
+			echo -e "\e[1;31m(FAIL) \e[0mDropbear is not installed on the system. Skipping..." 
+		fi
+		;;
+	stop)
+		if [ -f /bin/dropbear ]; then
+			echo -e "\e[1;94m(****) \e[0mStopping Dropbear..."
+			killall dropbear
+			echo -e "\e[1;32m(PASS) \e[0mStopped Dropbear."
+		else
+			echo -e "\e[1;31m(FAIL) \e[0mDropbear is not installed on the system. Skipping..."
+		fi
+		;;
+	restart|reload)
+		"$0" stop
+		"$0" start
+		;;
+	*)
+		echo $"Usage: $0 {start|stop|restart}"
+esac
+
+exit $?

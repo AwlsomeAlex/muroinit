@@ -7,30 +7,26 @@
 # Adapted for StarLinux from Gentoo/Buildroot
 
 rescue_shell() {
-	echo -e "\e[1;31m(Fail) \e[0mSystem could not be initiated! Dropping to Emergency Shell!" 
+	echo -e "\e[1;31m(FAIL) \e[0mSystem could not be initiated! Dropping to Emergency Shell!" 
 	exec sh
 }
 
 dmesg -n 1
-clear
-echo -e "\e[1;7mStarInit (Release 1.1.3)\e[0m"
+echo -e "\e[1;7mStarInit (Release 1.2.0)\e[0m"
 mount -t devtmpfs none /dev || rescue_shell
 mount -t proc none /proc || rescue_shell
 mount -t sysfs none /sys || rescue_shell
 mount -t tmpfs none /tmp || rescue_shell  
-echo -e "\e[1;32m(Pass) \e[0mMounted Required Filesystems!"
+echo -e "\e[1;32m(PASS) \e[0mMounted Required Filesystems!"
 echo /sbin/mdev > /proc/sys/kernel/hotplug
 mdev -s
-echo -e "\e[1;32m(Pass) \e[0mPopulated Dynamic Devices Directory!"
+echo -e "\e[1;32m(PASS) \e[0mPopulated Dynamic Devices Directory!"
 mount -o rw /dev/sda1 /mnt/root || rescue_shell
-# Experimental!!! 
-# mount -o rw /dev/sda2 /mnt/root || rescue_shell
-# mount -o rw /dev/sda1 /mnt/root/boot || rescue_shell
-echo -e "\e[1;32m(Pass) \e[0mMounted Root Directory!"
+echo -e "\e[1;32m(PASS) \e[0mMounted Root Directory!"
 mount --move /dev /mnt/root/dev || rescue_shell
 mount --move /sys /mnt/root/sys || rescue_shell
 mount --move /proc /mnt/root/proc || rescue_shell
 mount --move /tmp /mnt/root/tmp || rescue_shell
-echo -e "\e[1;32m(Pass) \e[0mMoved Required Filesystems to Root Directory!"
+echo -e "\e[1;32m(PASS) \e[0mMoved Required Filesystems to Root Directory!"
 echo -e "\e[1;94m(****) \e[0mSwitching to Real Root Directory..."
 exec switch_root /mnt/root /sbin/init

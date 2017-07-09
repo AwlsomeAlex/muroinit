@@ -1,6 +1,6 @@
 ::sysinit:/etc/init.d/rcS
 ::once:cat /etc/welcome.txt
-::respawn:/bin/cttyhack /bin/sh
+::respawn:/bin/cttyhack /bin/login
 ::ctrlaltdel:/sbin/reboot
 ::shutdown:echo -e ""
 ::shutdown:echo -e "\e[1;94m(****) \e[0mUnmounting All Filesystems..."
