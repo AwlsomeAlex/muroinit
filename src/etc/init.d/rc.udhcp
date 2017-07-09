@@ -10,5 +10,5 @@ if [ "$ip" ]; then
 	echo "DHCP Configuration for Device $interface"
 	echo "IP:		$ip"
 	echo "Mask:		$mask"
-	echo "Router:	$router"
+	echo "Router:		$router"
 fi
