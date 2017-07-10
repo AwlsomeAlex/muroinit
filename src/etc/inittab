@@ -3,6 +3,7 @@
 ::respawn:/bin/cttyhack /bin/login
 ::ctrlaltdel:/sbin/reboot
 ::shutdown:echo -e ""
+::shutdown:/etc/init.d/rcE
 ::shutdown:echo -e "\e[1;94m(****) \e[0mUnmounting All Filesystems..."
 ::shutdown:sync
 ::shutdown:umount -a -r
