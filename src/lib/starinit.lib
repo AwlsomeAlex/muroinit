@@ -1,0 +1,57 @@
+###################################
+#---------------------------------#
+# StarLinux INIT - Common Library #
+#---------------------------------#
+###################################
+# Created by AwlsomeAlex [GNU GPLv3]
+# Heavily Inspired by Gentoo's INIT Scripts
+
+#############
+# Variables #
+#############
+
+# Color Variables
+RD='\033[1;31m'
+GN='\033[1;32m'
+YW='\033[1;33m'
+BL='\033[1;34m'
+NC='\033[0m'
+
+# System Variables
+STARLINUX_BUILD=""
+STARINIT_VER="1.3.0"
+
+
+#############
+# Functions #
+#############
+
+# message [option] [message]: Messages displayed in console to inform user
+function message() {
+	OPTION=$1
+	MESSAGE=$2
+	if [[ $OPTION == "" ]]; then
+		echo -e "${RC}Usage: message [option] [message]"
+		echo -e "Option: ...., done, warning, error_noexit, error"
+		echo -e "Message: Displays Text for Certain Messages"
+	elif [[ $OPTION == "...." ]]; then
+		echo -e "${BL}(****) ${NC} $MESSAGE"
+	elif [[ $OPTION == "done" ]]; then
+		echo -e "${GN}(DONE) ${NC} $MESSAGE"
+	elif [[ $OPTION == "warning" ]]; then
+		echo -e "${YW}(WARN) ${NC} $MESSAGE"
+	elif [[ $OPTION == "error" ]]; then
+		echo -e "${RD}(FAIL) ${NC} $MESSAGE"
+		exit 1
+	elif [[ $OPTION == "error_noexit" ]]; then
+		echo -e "${RD}(FAIL) ${NC} $MESSAGE"
+	else
+		echo -e "${RD}Error: Unknown Option. ${NC}"
+	fi
+}
+
+# rescue_shell: Dumps user into Emergency SH if system fails to boot (troubleshooting)
+function rescue_shell() {
+	message error_noexit "System could not be initialized! Dropping to Emergency Shell!"
+	exec sh
+}
