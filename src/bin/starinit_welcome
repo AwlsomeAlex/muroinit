@@ -1,0 +1,19 @@
+#!/bin/sh
+#####################################
+#-----------------------------------#
+# StarLinux INIT - StarINIT Greeter #
+#-----------------------------------#
+#####################################
+# Created by AwlsomeAlex [GNU GPLv3]
+
+. /lib/starinit.lib
+
+echo ""
+echo "========================="
+echo "| Welcome to StarLinux! |"
+echo "========================="
+echo "| Codename $CODENAME"
+echo "| StarLinux Build $STARLINUX_BUILD"
+echo "| Linux Kernel $KERN_VER"
+echo "========================="
+echo ""

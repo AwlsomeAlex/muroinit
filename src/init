@@ -1,0 +1,34 @@
+#!/bin/busybox sh
+##########################
+#------------------------#
+# StarLinux INIT - /init #
+#------------------------#
+##########################
+# Created by AwlsomeAlex [GNU GPLv3]
+# Heavily Inspired by Gentoo's INIT Scripts
+
+dmesg -n 1
+. /lib/starinit.lib || echo "System failed to Load StarINIT Lib: /lib/starinit.lib" && exec sh
+
+echo -e "\e[1;7mStarINIT (Release $STARINIT_VER)\e[0m"
+message .... "Mounting Required System Directories...."
+mount -t devtmpfs none /dev || rescue_shell
+mount -t proc none /proc || rescue_shell
+mount -t sysfs none /sys || rescue_shell
+mount -t tmpfs none /tmp || rescue_shell
+message done "Mounted Required System Directories!"
+message .... "Populating Dynamic Devices Directory...."
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+mdev -s
+message done "Populated Dynamic Devices Directory!"
+message .... "Mounting Root Directory...."
+mount -o rw /dev/sda1 /mnt/root || rescue_shell
+message done "Mounted Root Directory!"
+message .... "Moving System Directories to Root Directory...."
+mount --move /dev /mnt/root/dev || rescue_shell
+mount --move /sys /mnt/root/sys || rescue_shell
+mount --move /proc /mnt/root/proc || rescue_shell
+mount --move /tmp /mnt/root/tmp || rescue_shell
+message done "Moved System Directories to Root Directory!"
+message .... "Switching to Root Directory...."
+exec switch_root /mnt/root /sbin/init

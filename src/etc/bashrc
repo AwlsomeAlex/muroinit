@@ -1,0 +1,2 @@
+export PS1='StarLinux:\w# '
+export TERMINFO=/usr/share/terminfo/

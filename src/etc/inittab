@@ -1,0 +1,12 @@
+::sysinit:/etc/init.d/rcS
+::once:starinit_welcome
+::respawn:/bin/cttyhack /bin/sh
+::ctrlaltdel:/sbin/reboot
+::shutdown:echo -e ""
+::shutdown:/etc/init.d/rcE
+::shutdown:echo -e "\e[1;94m(****) \e[0mUnmounting All Filesystems...."
+::shutdown:sync
+::shutdown:umount -a -r
+::shutdown:echo -e "\e[1;94m(****) \e[0mShutting Down StarLinux...."
+::shutdown:sleep 1
+::restart:/sbin/init
