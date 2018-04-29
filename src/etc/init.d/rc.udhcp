@@ -1,6 +1,13 @@
 #!/bin/sh
+#####################################
+#-----------------------------------#
+# StarLinux INIT - S10 - Networking #
+#-----------------------------------#
+#####################################
+# Created by AwlsomeAlex [GNU GPLv3]
+# Heavily Inspired by Gentoo's INIT Scripts
 
-ip addr add $ip/$mask dev $interface
+. /lib/starinit.lib
 
 if [ "$router" ]; then
 	ip route add default via $router dev $interface
@@ -8,7 +15,7 @@ fi
 
 if [ "$ip" ]; then
 	echo "DHCP Configuration for Device $interface"
-	echo "IP:		$ip"
-	echo "Mask:		$mask"
+	echo "IP:			$ip"
+	echo "Mask:			$mask"
 	echo "Router:		$router"
 fi

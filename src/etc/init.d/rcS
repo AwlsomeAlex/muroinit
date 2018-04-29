@@ -1,10 +1,13 @@
 #!/bin/sh
+#################################
+#-------------------------------#
+# StarLinux INIT - Start Script #
+#-------------------------------#
+#################################
+# Created by AwlsomeAlex [GNU GPLv3]
+# Heavily Inspired by Gentoo's INIT Scripts
 
-#########################
-# StarLinux Init Script #
-#########################
-# Made by AwlsomeAlex
-# Adapted for StarLinux from Gentoo/Buildroot
+. /lib/starinit.lib
 
 for i in /etc/init.d/S??* ;do
 	[ ! -f "$i" ] && continue

@@ -1,36 +1,36 @@
 #!/bin/sh
+#####################################
+#-----------------------------------#
+# StarLinux INIT - S10 - Networking #
+#-----------------------------------#
+#####################################
+# Created by AwlsomeAlex [GNU GPLv3]
+# Heavily Inspired by Gentoo's INIT Scripts
 
-#########################
-# StarLinux Init Script #
-#########################
-# Made by AwlsomeAlex
-# Adapted for StarLinux from Gentoo
+. /lib/starinit.lib
 
 case "$1" in
 	start)
-		echo -e "\e[1;94m(****) \e[0mStarting Network Devices..."
+		message .... "Starting Network Devices...."
 		for DEVICE in /sys/class/net/* ; do
 			ip link set ${DEVICE##*/} up
-			echo -e "\e[1;32m(PASS) \e[0mStarted Network Device ${DEVICE##*/}"
-			[ ${DEVICE##*/} = wlan0 ] && wpa_supplicant -B -iwlan0 -c/etc/wpa_supplicant.conf
+			message done "Started Network Devices."
+			# [ ${DEVICE##*/} = wlan0 ] && wpa_supplicant -B -iwlan0 -c/etc/wpa_supplicant.conf      ###!!! Wi-Fi Not Enabled !!!####
 			[ ${DEVICE##*/} != lo ] && [ ${DEVICE##*/} != sit0 ] && udhcpc -b -i ${DEVICE##*/} -s /etc/init.d/rc.udhcp
 		done
-		# /sbin/ifup -a
 		;;
 	stop)
-		echo -e "\e[1;94m(****) \e[0mStopping Network Devices..."
+		message .... "Stopping Network Devices...."
 		for DEVICE in /sys/class/net/* ; do
 			ip link set ${DEVICE##*/} down
-			echo -e "\e[1;32m(PASS) \e[0mStopped Network Device ${DEVICE##*/}"
+			message done "Stopped Network Devices."
 		done
-		# /sbin/ifdown -a
 		;;
 	restart|reload)
 		"$0" stop
 		"$0" start
 		;;
 	*)
-		echo $"Usage: $0 {start|stop|restart}"
+		usage
 esac
-
 exit $?
