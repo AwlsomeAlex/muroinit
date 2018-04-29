@@ -55,3 +55,8 @@ function rescue_shell() {
 	message error_noexit "System could not be initialized! Dropping to Emergency Shell!"
 	exec sh
 }
+
+# usage: Explains the usage of the script
+function usage() {
+	echo "Usage: $0 {start|stop|restart}"
+}

@@ -1,0 +1,29 @@
+#!/bin/sh
+################################
+#------------------------------#
+# StarLinux INIT - Stop Script #
+#------------------------------#
+################################
+# Created by AwlsomeAlex [GNU GPLv3]
+# Heavily Inspired by Gentoo's INIT Scripts
+
+. /lib/starinit.lib
+
+for i in /etc/init.d/S??* ;do
+	[ ! -f "$i" ] && continue
+	
+	case "$i" in
+	*.sh)
+		# Source Shell Script
+		(
+		trap - INT QUIT TSTP
+		set stop
+		. $i
+		)
+		;;
+	*)
+		# Fork Subprocess
+		$i stop
+		;;
+	esac
+done

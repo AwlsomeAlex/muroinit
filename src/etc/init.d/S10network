@@ -1,0 +1,36 @@
+#!/bin/sh
+#####################################
+#-----------------------------------#
+# StarLinux INIT - S10 - Networking #
+#-----------------------------------#
+#####################################
+# Created by AwlsomeAlex [GNU GPLv3]
+# Heavily Inspired by Gentoo's INIT Scripts
+
+. /lib/starinit.lib
+
+case "$1" in
+	start)
+		message .... "Starting Network Devices...."
+		for DEVICE in /sys/class/net/* ; do
+			ip link set ${DEVICE##*/} up
+			message done "Started Network Devices."
+			# [ ${DEVICE##*/} = wlan0 ] && wpa_supplicant -B -iwlan0 -c/etc/wpa_supplicant.conf      ###!!! Wi-Fi Not Enabled !!!####
+			[ ${DEVICE##*/} != lo ] && [ ${DEVICE##*/} != sit0 ] && udhcpc -b -i ${DEVICE##*/} -s /etc/init.d/rc.udhcp
+		done
+		;;
+	stop)
+		message .... "Stopping Network Devices...."
+		for DEVICE in /sys/class/net/* ; do
+			ip link set ${DEVICE##*/} down
+			message done "Stopped Network Devices."
+		done
+		;;
+	restart|reload)
+		"$0" stop
+		"$0" start
+		;;
+	*)
+		usage
+esac
+exit $?
