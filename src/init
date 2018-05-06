@@ -8,20 +8,23 @@
 # Heavily Inspired by Gentoo's INIT Scripts
 
 dmesg -n 1
-setsid cttyhack sh
-. /lib/starinit.lib || echo "System failed to Load StarINIT Lib: /lib/starinit.lib" && exec sh
 
 echo -e "\e[1;7mStarINIT (Release $STARINIT_VER)\e[0m"
-message .... "Mounting Required System Directories...."
-mount -t devtmpfs none /dev || rescue_shell
-mount -t proc none /proc || rescue_shell
-mount -t sysfs none /sys || rescue_shell
-mount -t tmpfs none /tmp || rescue_shell
-message done "Mounted Required System Directories!"
-message .... "Populating Dynamic Devices Directory...."
+#message .... "Mounting Required System Directories...."
+echo "Mounting Required System Directories...."
+mount -t devtmpfs none /dev #|| rescue_shell
+mount -t proc none /proc #|| rescue_shell
+mount -t sysfs none /sys #|| rescue_shell
+mount -t tmpfs none /tmp #|| rescue_shell
+#message done "Mounted Required System Directories!"
+echo "Mounted Required System Directories!"
+#message .... "Populating Dynamic Devices Directory...."
+echo "Polulating Dynamic Devices Directory...."
 echo /sbin/mdev > /proc/sys/kernel/hotplug
 mdev -s
-message done "Populated Dynamic Devices Directory!"
+#message done "Populated Dynamic Devices Directory!"
+echo "Populated Dynamic Devices Directory!"
+. /lib/starinit.lib || echo "System failed to Load StarINIT Lib: /lib/starinit.lib" && exec sh
 message .... "Mounting Root Directory...."
 mount -o rw /dev/sda1 /mnt/root || rescue_shell
 message done "Mounted Root Directory!"
