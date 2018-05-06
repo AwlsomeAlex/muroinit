@@ -20,7 +20,7 @@ NC='\033[0m'
 # System Variables
 STARLINUX_BUILD=""
 CODENAME=""
-KERN_VERX=""
+KERN_VERX="$(uname -r)"
 STARINIT_VER="1.3.1"
 
 
