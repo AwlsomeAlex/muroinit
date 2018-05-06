@@ -8,31 +8,63 @@
 # Heavily Inspired by Gentoo's INIT Scripts
 
 dmesg -n 1
+STARINIT_VER="1.3.1-GIT"
+RD='\033[1;31m'
+GN='\033[1;32m'
+YW='\033[1;33m'
+BL='\033[1;34m'
+NC='\033[0m'
+
+#----- FUNCTIONS -----#
+
+# message [option] [message]: Messages displayed in console to inform user
+message() {
+	OPTION=$1
+	MESSAGE=$2
+	if [[ $OPTION == "...." ]]; then
+		echo -e "${BL}(****) ${NC} $MESSAGE"
+	elif [[ $OPTION == "done" ]]; then
+		echo -e "${GN}(DONE) ${NC} $MESSAGE"
+	elif [[ $OPTION == "fail" ]]; then
+		echo -e "${RD}(FAIL) ${NC} $MESSAGE"
+	else
+		echo -e "${RD}Error: Unknown Option. ${NC}"
+	fi
+}
+
+# rescue_shell: Drops user to an Emergency Shell
+rescue_shell() {
+	message fail "System could not be initiated! Dropping to Emergency Shell!"
+	exec sh
+}
+
+# move_mount [name]: Moves the Mounted Directory from initramFS to real FS
+move_mount() {
+	NAME=$1
+	mount --move /$NAME /mnt/root/$NAME || rescue_shell
+}
+
+#----- INIT -----#
 
 echo -e "\e[1;7mStarINIT (Release $STARINIT_VER)\e[0m"
-#message .... "Mounting Required System Directories...."
-echo "Mounting Required System Directories...."
-mount -t devtmpfs none /dev #|| rescue_shell
-mount -t proc none /proc #|| rescue_shell
-mount -t sysfs none /sys #|| rescue_shell
-mount -t tmpfs none /tmp #|| rescue_shell
-#message done "Mounted Required System Directories!"
-echo "Mounted Required System Directories!"
-#message .... "Populating Dynamic Devices Directory...."
-echo "Polulating Dynamic Devices Directory...."
+message .... "Mounting Required System Directories...."
+mount -t devtmpfs none /dev || rescue_shell
+mount -t proc none /proc || rescue_shell
+mount -t sysfs none /sys || rescue_shell
+mount -t tmpfs none /tmp || rescue_shell
+message done "Mounted Required System Directories!"
+message .... "Populating Dynamic Devices Directory...."
 echo /sbin/mdev > /proc/sys/kernel/hotplug
 mdev -s
-#message done "Populated Dynamic Devices Directory!"
-echo "Populated Dynamic Devices Directory!"
-. /lib/starinit.lib || echo "System failed to Load StarINIT Lib: /lib/starinit.lib" && exec sh
+message done "Populated Dynamic Devices Directory!"
 message .... "Mounting Root Directory...."
 mount -o rw /dev/sda1 /mnt/root || rescue_shell
 message done "Mounted Root Directory!"
 message .... "Moving System Directories to Root Directory...."
-mount --move /dev /mnt/root/dev || rescue_shell
-mount --move /sys /mnt/root/sys || rescue_shell
-mount --move /proc /mnt/root/proc || rescue_shell
-mount --move /tmp /mnt/root/tmp || rescue_shell
+move_mount dev
+move_mount sys
+move_mount proc
+move_mount tmp
 message done "Moved System Directories to Root Directory!"
 message .... "Switching to Root Directory...."
 exec switch_root /mnt/root /sbin/init
