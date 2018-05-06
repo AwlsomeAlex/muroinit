@@ -8,6 +8,7 @@
 # Heavily Inspired by Gentoo's INIT Scripts
 
 dmesg -n 1
+setsid cttyhack sh
 . /lib/starinit.lib || echo "System failed to Load StarINIT Lib: /lib/starinit.lib" && exec sh
 
 echo -e "\e[1;7mStarINIT (Release $STARINIT_VER)\e[0m"
