@@ -1,71 +1,56 @@
 #!/bin/busybox sh
-###################
-#-----------------#
-# Xiongnu - /init #
-#-----------------#
-###################
-# Created by AwlsomeAlex [GNU GPLv3]
-# Heavily Inspired by Gentoo's INIT Scripts
+##################
+# -------------- #
+# Xiongnu - Init #
+# -------------- #
+##################
+# System Init Script
+####################################
+# Copyright (C) 2018 Alex Barris - All Rights Reserved
+# Awlsome Public License v1.0
+# v1.2.4a
 
-dmesg -n 1
+dmesg -n 1 # Supress Kernel Messages
+. /lib/libstar/sys.lib
+. /lib/libstar/common.lib
 
-STARINIT_VER="0.0.1"
-RD='\033[1;31m'
-GN='\033[1;32m'
-YW='\033[1;33m'
-BL='\033[1;34m'
-NC='\033[0m'
+# ----- Functions ----- #
 
-#----- FUNCTIONS -----#
-
-# message [option] [message]: Messages displayed in console to inform user
-message() {
-	OPTION=$1
-	MESSAGE=$2
-	if [[ $OPTION == "...." ]]; then
-		echo -e "${BL}(****) ${NC} $MESSAGE"
-	elif [[ $OPTION == "done" ]]; then
-		echo -e "${GN}(DONE) ${NC} $MESSAGE"
-	elif [[ $OPTION == "fail" ]]; then
-		echo -e "${RD}(FAIL) ${NC} $MESSAGE"
-	else
-		echo -e "${RD}Error: Unknown Option. ${NC}"
-	fi
+# rescueShell [reason]: Drops user into an Emergency Shell
+function rescueShell() {
+	REASON=$1
+	common_print "System could not be initialized! $REASON" -s FAIL
+	common_print "Dropping to an Emergency Shell!" -c Red
+	xiongnu_welcome
+	exec sh -
 }
 
-# rescue_shell: Drops user to an Emergency Shell
-rescue_shell() {
-	message fail "System could not be initiated! Dropping to Emergency Shell!"
-	exec sh
-}
-
-# move_mount [name]: Moves the Mounted Directory from initramFS to real FS
-move_mount() {
+# moveMount [mount point]: Moves mounted directory from InitramFS to realFS
+function moveMount() {
 	NAME=$1
-	mount --move /$NAME /mnt/root/$NAME || rescue_shell
+	mount --move /$NAME /mnt/root/$NAME || rescueShell "Could not move mounted directory $NAME to real Filesystem!"
 }
 
-#----- INIT -----#
-
-echo -e "\e[1;7mXiongnu (Release $STARINIT_VER)\e[0m"
-message .... "Mounting Required System Directories...."
-mount -t devtmpfs none /dev || rescue_shell
-mount -t proc none /proc || rescue_shell
-mount -t sysfs none /sys || rescue_shell
-mount -t tmpfs none /tmp || rescue_shell
-message done "Mounted Required System Directories!"
-message .... "Populating Dynamic Devices Directory...."
-echo /sbin/mdev > /proc/sys/kernel/hotplug
-mdev -s
-message done "Populated Dynamic Devices Directory!"
-message .... "Mounting Root Directory...."
-mount -o rw /dev/sda1 /mnt/root || rescue_shell
-message done "Mounted Root Directory!"
-message .... "Moving System Directories to Root Directory...."
-move_mount dev
-move_mount sys
-move_mount proc
-move_mount tmp
-message done "Moved System Directories to Root Directory!"
-message .... "Switching to Root Directory...."
-exec switch_root /mnt/root /sbin/init
+# ----- Init ----- #
+common_print "Xiongnu 1.2.4a - StarLinux Build $STARLINUX_BUILD" -c Yellow
+common_print "Mounting System Directories...." -s ....
+mount -t devtmpfs none /dev || rescueShell "Failed to mount /dev!" 
+mount -t proc none /proc || rescueShell "Failed to mount /proc!"
+mount -t sysfs none /sys || rescueShell "Failed to mount /sys!"
+mount -t tmpfs none /tmp || rescueShell "Fauled to mount /tmp!"
+common_print "Mounted System Directories!" -s DONE
+common_print "Populating Dynamic Device Directory (/dev)...." -s ....
+echo /sbin/mdev > /proc/sys/kernel/hotplug || rescueShell "Failed to call hotplug!"
+common_print "Populated Dynamic Device Directory (/dev)!" -s DONE
+common_print "Mounting Root Filesystem...." -s ....
+mount -a || rescueShell "Failed to Mount Directories from /etc/fstab" # EXPERIMENTAL
+# mount -o rw /dev/sda1 /mnt/root || rescueShell "Failed to mount Root Directory!" # /etc/fstab with mount -a would be cool!
+common_print "Mounted Root Filesystem!" -s DONE
+common_print "Moving System Directories to Root Filesystem...." -s ....
+moveMount dev
+moveMount sys
+moveMount proc
+moveMount tmp
+common_print "Moved System Directories to Root Filesystem!" -s DONE
+common_print "Switching to Root Filesystem...." -s ....
+exec switch_root /mnt/root /sbin/init || rescueShell "Failed to switch_root to Root Filesystem!"

@@ -1,22 +1,18 @@
-# [MIRROR] Xiongnu (StarLinux Init Scripts and InitramFS)
-Xiongnu was initally a fork of the sysvinit-style scripts used by Minimal Linux Live, but after being exposed to better methods for system initalization, I greatly modified the init scripts to be simplier and modular (in a way) so once more packages are introduced to StarLinux, init scripts will be able to be added instead of being hard-coded as before. 
+# Xiongnu (StarLinux's sysV-like Init Scripts)
+Xiongnu started as starINIT, which was heavily based off of the init scripts used by Minimal Linux Live, but after being exposed to its OverlayFS, I wanted to find a more traditional way of storing files. So after looking at several Linux Distribution's init files (Devuan, Gentoo, etc.) I rewrote it in a similar fashion to the current itteration of Xiongnu found today. StarLinux and its various componients have been rewritten dozens of times, but I hope to keep this one stable.
 
-## Compatibility with Minimal Linux Live
-Due to StarLinux being closely similar to Minimal Linux Live, **IT IS COMPLETELY POSSIBLE TO INTEGRATE THIS INTO THAT PROJECT!** However, it isn't practable to unless the project itself wants to adapt the code due to one major difference, The Filesystem.
+## What (will be) included:
+* Required Root (/) Directories
+* /dev Occupation
+* Service Manager (xubu [command])
+* (minimal) Networking and DHCP
 
-StarLinux's Filesystem = ext4 with InitramFS
-
-Minimal Linux Live's Filesystem = OverlayFS
-
-You see, this project is setup to deal with an InitramFS and dump the user into an ext4 FS, and doesn't include **ANY** support for OverlayFS Initalization. As I do not plan on porting these init scripts to Minimal Linux Live (Unless Requested), the only way it would work is if it was ported for this type of filesystem. I apologize for any inconvience. 
-
-## What's Included:
-* Required Root Directories
-* /dev Occupier
-* Modular INIT Scripts
-* Network Scripts
+## Why Xiongnu?
+I'm in AP World History and while I was rewritting the fundamentals of StarLinux I was studying the fall of the Hans Dynasty, so why not, sounds more interesting than starINIT.
 
 ## Contributors:
-* Ivandavidov (Original Boot Scripts)
+* AwlsomeAlex (Developer)
 * Gentoo Linux (Boot Script Concepts)
-* AwlsomeAlex (Rewritten Boot Scripts)
+* Ivandavidov (Creating MLL)
+
+Licensed under the Awlsome Public License v1.0

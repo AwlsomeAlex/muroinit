@@ -1,20 +1,20 @@
 #!/bin/sh
-#################################
-#-------------------------------#
-# StarLinux INIT - Start Script #
-#-------------------------------#
-#################################
-# Created by AwlsomeAlex [GNU GPLv3]
-# Heavily Inspired by Gentoo's INIT Scripts
-
-. /lib/starinit.lib
+###########################
+# ----------------------- #
+# Xiongnu - Service Start #
+# ----------------------- #
+###########################
+# rcS - Service Start
+####################################
+# Copyright (C) 2018 Alex Barris - All Rights Reserved
+# Awlsome Public License v1.0
+# v1.2.2a
 
 for i in /etc/init.d/S??* ;do
 	[ ! -f "$i" ] && continue
-	
 	case "$i" in
 	*.sh)
-		# Source Shell Script
+		# Shell Source Script
 		(
 		trap - INT QUIT TSTP
 		set start

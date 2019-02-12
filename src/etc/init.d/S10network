@@ -1,29 +1,32 @@
 #!/bin/sh
-#####################################
-#-----------------------------------#
-# StarLinux INIT - S10 - Networking #
-#-----------------------------------#
-#####################################
-# Created by AwlsomeAlex [GNU GPLv3]
-# Heavily Inspired by Gentoo's INIT Scripts
+#############################
+# ------------------------- #
+# Xiongnu - Network Service #
+# ------------------------- #
+#############################
+# Network Service
+####################################
+# Copyright (C) 2018 Alex Barris - All Rights Reserved
+# Awlsome Public License v1.0
+# v1.2.2a
 
-. /lib/starinit.lib
+. /lib/libstar/common.lib
 
 case "$1" in
 	start)
-		message .... "Starting Network Devices...."
+		common_print "Starting Network Devices...." -s ....
 		for DEVICE in /sys/class/net/* ; do
 			ip link set ${DEVICE##*/} up
-			message done "Started Network Devices."
-			# [ ${DEVICE##*/} = wlan0 ] && wpa_supplicant -B -iwlan0 -c/etc/wpa_supplicant.conf      ###!!! Wi-Fi Not Enabled !!!####
+			common_print "Started Network Device ${DEVICE##*/}" -s DONE
+			[ ${DEVICE##*/} = wlan0 ] && wpa_supplicant -B -iwlan0 -c/etc/wpa_supplicant.conf
 			[ ${DEVICE##*/} != lo ] && [ ${DEVICE##*/} != sit0 ] && udhcpc -b -i ${DEVICE##*/} -s /etc/init.d/rc.udhcp
 		done
 		;;
 	stop)
-		message .... "Stopping Network Devices...."
+		common_print "Stopping Network Devices...." -s ....
 		for DEVICE in /sys/class/net/* ; do
 			ip link set ${DEVICE##*/} down
-			message done "Stopped Network Devices."
+			common_print "Stopped Network Device ${DEVICE##*/}" -s DONE
 		done
 		;;
 	restart|reload)
@@ -31,6 +34,6 @@ case "$1" in
 		"$0" start
 		;;
 	*)
-		usage
+		common_print "Usage: $0 {start|stop|restart}" -c Red
 esac
 exit $?
