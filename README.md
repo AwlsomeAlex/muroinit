@@ -15,4 +15,4 @@ I'm in AP World History and while I was rewritting the fundamentals of StarLinux
 * Gentoo Linux (Boot Script Concepts)
 * Ivandavidov (Creating MLL)
 
-Licensed under the Awlsome Public License v1.0
+Licensed under the GNU GPLv3
