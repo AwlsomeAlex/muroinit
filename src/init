@@ -1,0 +1,58 @@
+#!/bin/busybox sh
+#######################
+#---------------------#
+#   Xiongnu - Init    #
+#---------------------#
+#######################
+# System Init Scripts #
+#######################
+# Copyright (C) 2019 Alexander Barris - All Rights Reserved
+# GNU GPLv3
+# vGIT
+
+dmesg -n 1 # Supress Kernel Messages
+
+#-----------------------#
+# ----- Functions ----- #
+#-----------------------#
+
+# rescueShell(reason): Drops user into Emergency Shell
+function rescueShell() {
+    REASON=$1
+    echo "System could not be initialized! REASON: $REASON"
+    echo "Dropping to an Emergency Shell...."
+    xiongnu_welcome
+    exec sh -
+}
+
+# moveMount(mountPoint): Moves mounted directory from InitramFS to realFS
+function moveMount() {
+    NAME=$1
+    mount --move /$NAME /mnt/root/$NAME || rescueShell "Could not move directory $NAME to real Filesystem!"
+}
+
+#-----------------------#
+# ----- Init Area ----- #
+#-----------------------#
+echo "========== Xiongnu vGIT - StelaLinux 0.0.1a =========="
+echo "[....] Mounting System Directories...."
+mount -t devtmpfs none /dev
+mount -t proc none /proc
+mount -t sysfs none /sys
+mount -t tmpfs none /tmp
+echo "[DONE] Mounted Directories."
+echo "[....] Populating Dynamic Device Directory (/dev)...."
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+echo "[DONE] Populated Dynamic Device Directory (/dev)."
+echo "[....] Mounting File Systems...."
+mount -a
+echo "[DONE] Mounted File System."
+echo "[....] Moving Filesystems...."
+moveMount dev
+moveMount sys
+moveMount proc
+moveMount tmp
+echo "[DONE] Moved Filesystems."
+echo "[....] Switching to Root Filesystem...."
+exec switch_root /mnt/root /sbin/init
+
