@@ -1,0 +1,23 @@
+#!/bin/sh
+#########################
+#-----------------------#
+# Xiongnu - DHCP Config #
+#-----------------------#
+#########################
+# DHCP
+#########################
+# Copyright (C) 2019 Alexander Barris - All Rights Reserved
+# GNU GPLv3
+# vGIT
+
+ip addr add $ip/$mask dev $interface 
+
+if [ "$router" ]; then
+    ip route add default via $router dev $interface
+fi
+if [ "$ip" ]; then
+    echo "DHCP Configuration for Device $interface
+    echo "IP:           $ip"
+    echo "Mask:         $mask"
+    echo "Router:   $router"
+fi

@@ -1,0 +1,37 @@
+#!/bin/bash
+#############################
+#---------------------------#
+# Xiongnu - Network Service #
+#---------------------------#
+#############################
+# Network Service
+#############################
+# Copyright (C) 2019 Alexander Barris - All Rights Reserved
+# GNU GPLv3
+# vGIT
+
+case "$1" in
+    start)
+        echo "[....] Starting Network Devices...."
+        for DEVICE in /sys/class/net/* ; do
+            ip link set ${DEVICE##*/} up
+            echo "[DONE] Started Network Device ${DEVICE##*/}"
+            [ ${DEVICE##*/} = wlan0 ] && wpa_supplicant -B -iwlan0 -c/etc/wpa_supplicant.conf
+			[ ${DEVICE##*/} != lo ] && [ ${DEVICE##*/} != sit0 ] && udhcpc -b -i ${DEVICE##*/} -s /etc/init.d/rc.udhcp
+        done
+        ;;
+    stop)
+        echo "[....] Stopping Network Devices...."
+        for DEVICE in /sys/class/net/* ; do
+            ip link set ${DEVICE##*/} down
+            echo "[DONE] Stopped Network Device ${DEVICE##*/}"
+        done
+        ;;
+    restart|reload)
+        "$0" stop
+        "$0" start
+        ;;
+    *)
+        echo "Usage $0 {start|stop|restart}"
+esac
+exit $?

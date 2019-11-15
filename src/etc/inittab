@@ -1,0 +1,12 @@
+::sysinit:/etc/init.d/rcS
+::once:xiongnu_welcome
+::respawn:/bin/cttyhack /bin/sh
+::ctrlaltdel:/sbin/reboot
+::shutdown:echo -e ""
+::shutdown:/etc/init.d/rcE
+::shutdown:echo "[....] Umounting Filesystems...."
+::shutdown:sync
+::shutdown:umount -a -r
+::shutdown:echo "[....] Shutting Down StelaLinux...."
+::shutdown:sleep 1
+::restart:/sbin/init

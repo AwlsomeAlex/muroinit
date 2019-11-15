@@ -1,0 +1,29 @@
+#!/bin/sh
+###########################
+#-------------------------#
+# Xiongnu - Service Start #
+#-------------------------#
+###########################
+# rcS - Service Start 
+###########################
+# Copyright (C) 2019 Alexander Barris - All Rights Reserved
+# GNU GPLv3
+# vGIT
+
+for i in /etc/init.d/S??* ;do
+    [ ! -f "$i" ] && continue
+    case "$i" in
+    *.sh)
+        # Shell Script
+        (
+        trap - INT QUIT TSTP
+        set start
+        . $i
+        )
+        ;;
+    *)
+        # Fork
+        $i start
+        ;;
+    esac
+done
