@@ -10,21 +10,29 @@
 # GNU GPLv3
 # vGIT
 
+#-------------------------#
+# ----- Color Codes ----- #
+#-------------------------#
+GREEN='\033[1;32m'
+BLUE='\033[1;34m'
+NC='\033[0m'
+
+
 case "$1" in
     start)
-        echo "[....] Starting Network Devices...."
+        echo -e "${BLUE}[....] ${NC}Starting Network Devices...."
         for DEVICE in /sys/class/net/* ; do
             ip link set ${DEVICE##*/} up
-            echo "[DONE] Started Network Device ${DEVICE##*/}"
+            echo -e "${GREEN}[DONE] ${NC}Started Network Device ${DEVICE##*/}"
             [ ${DEVICE##*/} = wlan0 ] && wpa_supplicant -B -iwlan0 -c/etc/wpa_supplicant.conf
 			[ ${DEVICE##*/} != lo ] && [ ${DEVICE##*/} != sit0 ] && udhcpc -b -i ${DEVICE##*/} -s /etc/init.d/rc.udhcp
         done
         ;;
     stop)
-        echo "[....] Stopping Network Devices...."
+        echo -e "${BLUE}[....] ${NC}Stopping Network Devices...."
         for DEVICE in /sys/class/net/* ; do
             ip link set ${DEVICE##*/} down
-            echo "[DONE] Stopped Network Device ${DEVICE##*/}"
+            echo -e "${GREEN}[DONE] ${NC}Stopped Network Device ${DEVICE##*/}"
         done
         ;;
     restart|reload)

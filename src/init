@@ -12,6 +12,15 @@
 
 dmesg -n 1 # Supress Kernel Messages
 
+#-------------------------#
+# ----- Color Codes ----- #
+#-------------------------#
+RED='\033[0;31m'
+BLUE='\033[1;34m'
+GREEN='\033[1;32m'
+ORANGE='\033[0;33m'
+NC='\033[0m'
+
 #-----------------------#
 # ----- Functions ----- #
 #-----------------------#
@@ -19,7 +28,7 @@ dmesg -n 1 # Supress Kernel Messages
 # rescueShell(reason): Drops user into Emergency Shell
 function rescueShell() {
     REASON=$1
-    echo "System could not be initialized! REASON: $REASON"
+    echo -e "${RED}[FAIL] ${NC}System could not be initialized! REASON: $REASON"
     echo "Dropping to an Emergency Shell...."
     xiongnu_welcome
     exec sh -
@@ -34,24 +43,24 @@ function moveMount() {
 #-----------------------#
 # ----- Init Area ----- #
 #-----------------------#
-echo "========== Xiongnu vGIT - StelaLinux 0.0.1a =========="
-echo "[....] Mounting System Directories...."
+echo -e "${ORANGE}========== Xiongnu vGIT - StelaLinux Technical Preview 1 ==========${NC}"
+echo -e "${BLUE}[....] ${NC}Mounting System Directories...."
 mount -t devtmpfs none /dev || rescueShell "Failed to mount /dev!"
 mount -t proc none /proc || rescueShell "Failed to mount /proc!"
 mount -t sysfs none /sys || rescueShell "Failed to mount /sys!"
 mount -t tmpfs none /tmp || rescueShell "Failed to mount /tmp!"
-echo "[DONE] Mounted Directories."
-echo "[....] Populating Dynamic Device Directory (/dev)...."
+echo -e "${GREEN}[DONE] ${NC}Mounted Directories."
+echo -e "${BLUE}[....] ${NC}Populating Dynamic Device Directory (/dev)...."
 echo /sbin/mdev > /proc/sys/kernel/hotplug
-echo "[DONE] Populated Dynamic Device Directory (/dev)."
-echo "[....] Mounting File Systems...."
+echo -e "${GREEN}[DONE] ${NC}Populated Dynamic Device Directory (/dev)."
+echo -e "${BLUE}[....] ${NC}Mounting File Systems...."
 mount -a || rescueShell "Failed to mount Filesystem!"
-echo "[DONE] Mounted File System."
-echo "[....] Moving Filesystems...."
+echo -e "${GREEN}[DONE] ${NC}Mounted File System."
+echo -e "${BLUE}[....] ${NC}Moving Filesystems...."
 moveMount dev
 moveMount sys
 moveMount proc
 moveMount tmp
-echo "[DONE] Moved Filesystems."
-echo "[....] Switching to Root Filesystem...."
+echo -e "${GREEN}[DONE] ${NC}Moved Filesystems."
+echo -e "${BLUE}[....] ${NC}Switching to Root Filesystem...."
 exec switch_root /mnt/root /sbin/init || rescueShell "Failed to switch_root to Root Filesystem!"
