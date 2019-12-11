@@ -1,6 +1,14 @@
 ::sysinit:/etc/init.d/rcS
-::once:xiongnu_welcome
-::respawn:/bin/login
+::once:echo ""
+::once:echo "StelaLinux Technical Preview 1"
+::once:echo "Powered by Linux Kernel $(uname -r)"
+::once:echo ""
+tty1::respawn:-/bin/login
+tty2::askfirst:-/bin/login
+tty3::askfirst:-/bin/login
+tty4::askfirst:-/bin/login
+tty5::askfirst:-/bin/login
+tty6::askfirst:-/bin/login
 ::ctrlaltdel:/sbin/reboot
 ::shutdown:echo -e ""
 ::shutdown:/etc/init.d/rcE
