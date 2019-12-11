@@ -1,6 +1,6 @@
 ::sysinit:/etc/init.d/rcS
 ::once:xiongnu_welcome
-::respawn:/bin/cttyhack /bin/sh
+::respawn:/bin/login
 ::ctrlaltdel:/sbin/reboot
 ::shutdown:echo -e ""
 ::shutdown:/etc/init.d/rcE
