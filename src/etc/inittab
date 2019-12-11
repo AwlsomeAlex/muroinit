@@ -1,12 +1,20 @@
 ::sysinit:/etc/init.d/rcS
-::once:xiongnu_welcome
-::respawn:/bin/cttyhack /bin/sh
+::once:echo "StelaLinux Technical Preview 1"
+::once:echo "Powered by Linux Kernel $(uname -r)"
+::once:echo ""
+::once:sleep 2
+tty1::respawn:-/bin/login
+tty2::askfirst:-/bin/login
+tty3::askfirst:-/bin/login
+tty4::askfirst:-/bin/login
+tty5::askfirst:-/bin/login
+tty6::askfirst:-/bin/login
 ::ctrlaltdel:/sbin/reboot
 ::shutdown:echo -e ""
 ::shutdown:/etc/init.d/rcE
-::shutdown:echo -e "\e[1;94m(****) \e[0mUnmounting All Filesystems..."
+::shutdown:echo -e "\e[1;34m[....] \e[0mUmounting Filesystems...."
 ::shutdown:sync
 ::shutdown:umount -a -r
-::shutdown:echo -e "\e[1;94m(****) \e[0mShutting Down StarLinux..."
+::shutdown:echo -e "\e[1;34m[....] \e[0mShutting Down StelaLinux...."
 ::shutdown:sleep 1
 ::restart:/sbin/init
