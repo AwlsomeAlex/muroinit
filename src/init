@@ -64,4 +64,4 @@ moveMount proc
 moveMount tmp
 echo -e "${GREEN}[DONE] ${NC}Moved Filesystems."
 echo -e "${BLUE}[....] ${NC}Switching to Root Filesystem...."
-exec switch_root /mnt/root /sbin/init || rescueShell "Failed to switch_root to Root Filesystem!"
+exec switch_root /mnt/root /bin/init || rescueShell "Failed to switch_root to Root Filesystem!"
