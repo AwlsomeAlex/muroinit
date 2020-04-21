@@ -1,13 +1,14 @@
 #!/bin/sh
-#####################
-# ----------------- #
-# Xiongnu - Greeter #
-# ----------------- #
-#####################
-# Init Greeter      #
-#####################
-# Copyright (C) 2019 Alex Barris - All Rights Reserved
-# GNU GPLv3
+# vim: tabstop=4: shiftwidth=4: expandtab: set filetype=bash:
+######################
+# ------------------ #
+# MuroINIT - Greeter #
+# ------------------ #
+######################
+# Init Greeter       #
+######################
+# Copyright (C) 2019-2020 Alex Barris - All Rights Reserved
+# ISC License
 # vGIT
 
 ORANGE='\033[0;33'

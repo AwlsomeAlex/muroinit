@@ -1,14 +1,13 @@
 ::sysinit:/etc/init.d/rcS
-::once:echo ""
-::once:echo "StelaLinux Technical Preview 1"
-::once:echo "Powered by Linux Kernel $(uname -r)"
-::once:echo ""
-tty1::respawn:-/bin/login
-tty2::askfirst:-/bin/login
-tty3::askfirst:-/bin/login
-tty4::askfirst:-/bin/login
-tty5::askfirst:-/bin/login
-tty6::askfirst:-/bin/login
+::once:echo "Welcome to StelaLinux $(stela -b)"
+::once:echo "Running Linux Kernel $(uname -r), BusyBox and musl!"
+tty1::respawn:/usr/bin/getty 38400 tty1
+tty2::respawn:/usr/bin/getty 38400 tty2
+tty3::respawn:/usr/bin/getty 38400 tty3
+tty4::respawn:/usr/bin/getty 38400 tty4
+tty5::respawn:/usr/bin/getty 38400 tty5
+tty6::respawn:/usr/bin/getty 38400 tty6
+::once:sleep 2
 ::ctrlaltdel:/sbin/reboot
 ::shutdown:echo -e ""
 ::shutdown:/etc/init.d/rcE
