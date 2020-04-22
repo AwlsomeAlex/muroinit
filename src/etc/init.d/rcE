@@ -1,29 +1,30 @@
 #!/bin/sh
-#########################
-# --------------------- #
-# Xiongnu - Service End #
-# --------------------- #
-#########################
+# vim: tabstop=4: shiftwidth=4: expandtab: set filetype=bash:
+##########################
+#------------------------#
+# MuroINIT - Service End #
+#------------------------#
+##########################
 # rcE - Service End
-####################################
-# Copyright (C) 2018 Alex Barris - All Rights Reserved
-# Awlsome Public License v1.0
-# v1.2.2a
+#########################
+# Copyright (C) 2019-2020 Alexander Barris - All Rights Reserved
+# ISC License
+# vGIT
 
 for i in /etc/init.d/S??* ;do
-	[ ! -f "$i" ] && continue
-	case "$i" in
-	*.sh)
-		# Shell Source Script
-		(
-		trap - INT QUIT TSTP
-		set stop
-		. $i
-		)
-		;;
-	*)
-		# Fork Subprocess
-		$i stop
-		;;
-	esac
+    [ ! -f "$i" ] && continue
+    case "$i" in
+    *.sh)
+        # Shell Script
+        (
+        trap - INT QUIT TSTP
+        set stop
+        . $i
+        )
+        ;;
+    *)
+        # Fork
+        $i stop
+        ;;
+    esac
 done

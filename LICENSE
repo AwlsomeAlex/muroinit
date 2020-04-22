@@ -1,57 +1,15 @@
-------------| Awlsome Public License |------------
-              Version 1.0 - 11/28/18
- Copyright (C) 2018 Alex Barris - All Rights Reserved 
- 
- The definition of "Software" includes both the 
- binary compiled program and the source code used
- to compile such binary. "Software" can also be
- defined as an interpreted script, web-based code,
- or others. "Software" is the project as a whole
- and is protected by the Awlsome Public License.
- Documentation CAN also be protected under the
- Awlsome Public License or another external
- license like the Creative Common or others.
- 
- The use of the "Software" in any form with or
- without modification is permitted under the 
- following conditions:
- 
- 1.) The original copyright notice, the list of
-     conditions, and this declaimer MUST be
-     included in ANY modified, linked, or 
-     distributed form of the "Software" UNLESS
-     the ORIGINAL copyright holder sublicenses it
-     outside of the Awlsome Public License.
-     
-2.) The "Software" CAN NOT be redistributed
-    commerically with the intent of profit nor
-    can the copyright holder be endorsed
-    without written permission by a corporation. 
-    The "Software" can HOWEVER be used internally,
-    as soon as it is distributed OUTSIDE of this
-    environment the "Software" MUST be publically
-    accessible.
-    
-3.) The Source Code MUST be available if a binary
-    release is made. AT THE VERY LEAST the source
-    code has to be included in a seperate source
-    directory INCLUDED with the binary package.
-    
-4.) The "Software" belongs to the copyright
-    holder. The "Software" CAN NOT be repackaged
-    under the name of someone else UNLESS
-    written permission being given by the 
-    original copyright holder. THE "SOFTWARE"
-    CAN NOT BE TRANSFERRED TO A CORPORATION AND
-    CAN NOT VOID CONDITION 2!
-    
-5.) The "Software" can be distributed, linked to
-    another Open Source project, modified, or
-    privately used AS LONG AS the following
-    conditions are met.
-    
-THE "SOFTWARE" IS PROVIDED "AS IS", WITHOUT 
-WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.
-THE COPYRIGHT HOLDER OR AUTHORS OF THE 
-"SOFTWARE" CAN NOT BE HELPED LIABLE FOR DAMAGES
-CAUSED FROM USING THE "SOFTWARE"!
+ISC License
+
+Copyright (c) 2020 Alexander Barris <awlsomealex at protonmail dot com>
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
