@@ -30,7 +30,7 @@ TITLE='  _____ __       __      __    _
 
 
 echo -e "${ORANGE}$TITLE ${NC}"
-echo "Technical Preview 1 - 12/8/19"
+echo "Release x - xx/yy/zz"
 echo "Powered by Linux Kernel $(uname -r)"
 echo ""
 sleep 2
